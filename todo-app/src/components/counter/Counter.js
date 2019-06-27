@@ -7,14 +7,13 @@ class Counter extends Component {
     this.state = {
       counter: 0,
     };
-    this.increment = this.increment.bind(this);
   }
   
-  increment() {
+  increment = () => {
     this.setState((prevState) => {return {counter: prevState.counter + 1}});
   }
   
-  render() {
+  render = () => {
     return (
       <div className='counter'>
         <button onClick={this.increment}>+1</button>
