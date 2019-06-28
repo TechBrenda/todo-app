@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 /* import FirstComponent from './components/learning-examples/FirstComponent';
 import SecondComponent from './components/learning-examples/SecondComponent';
 import ThirdComponent from './components/learning-examples/ThirdComponent'; */
-import Counter from './components/counter/Counter';
+import Counter from './components/counter/Counter'
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <div className='App'>
         <Counter />
       </div>
-    );
+    )
   }
 }
 
@@ -28,4 +28,4 @@ class App extends Component {
   }
 } */
 
-export default App;
+export default App
