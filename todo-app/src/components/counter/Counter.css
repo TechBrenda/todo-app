@@ -14,3 +14,11 @@ button {
 .counter {
   text-align: center;
 }
+
+.reset {
+  background-color: red;
+  font-size: 48px;
+  padding: 5px;
+  color: white;
+  width: 200px;
+}

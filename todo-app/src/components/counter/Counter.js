@@ -10,12 +10,15 @@ class Counter extends Component {
   }
 
   increment = incrementer => {
-    console.log('increment from parent')
     this.setState(prevState => {
       return {
         counter: prevState.counter + incrementer
       }
     })
+  }
+
+  reset = () => {
+    this.setState({ counter: 0 })
   }
 
   render = () => {
@@ -25,6 +28,11 @@ class Counter extends Component {
         <CounterButton by={5} incrementMethod={this.increment} />
         <CounterButton by={10} incrementMethod={this.increment} />
         <span className='count'>{this.state.counter}</span>
+        <div>
+          <button className='reset' onClick={this.reset}>
+            Reset
+          </button>
+        </div>
       </div>
     )
   }
