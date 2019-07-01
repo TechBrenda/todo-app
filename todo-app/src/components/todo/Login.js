@@ -5,36 +5,54 @@ class Login extends Component {
     super(props)
     this.state = {
       username: 'techbrenda',
-      password: ''
+      password: '',
+      isLoggedIn: false,
+      loginMessage: ''
     }
   }
 
-  handleUsernameChange = event => {
-    this.setState({ username: event.target.value })
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
-  handlePasswordChange = event => {
-    this.setState({ password: event.target.value })
+  handleLogin = () => {
+    if (
+      this.state.username === 'techbrenda' &&
+      this.state.password === 'apples'
+    ) {
+      console.log('Successful')
+      this.setState({
+        isLoggedIn: true,
+        loginMessage: 'Login Successful'
+      })
+    } else {
+      console.log('Failed')
+      this.setState({
+        isLoggedIn: false,
+        loginMessage: 'Invalid Credentials'
+      })
+    }
   }
 
   render () {
     return (
       <div>
+        <div>{this.state.loginMessage}</div>
         <span>User Name:</span>
         <input
           type='text'
           name='username'
           value={this.state.username}
-          onChange={this.handleUsernameChange}
+          onChange={this.handleChange}
         />
         <span>Password:</span>
         <input
           type='password'
           name='password'
           value={this.state.password}
-          onChange={this.handlePasswordChange}
+          onChange={this.handleChange}
         />
-        <button>Login</button>
+        <button onClick={this.handleLogin}>Login</button>
       </div>
     )
   }
