@@ -5,12 +5,15 @@ import Login from './Login'
 import Welcome from './Welcome'
 import TodoList from './TodoList'
 import Error from './Error'
+import Header from './Header'
+import Footer from './Footer'
 
 class TodoApp extends Component {
   render () {
     return (
       <div className='TodoApp'>
         <Router>
+          <Header />
           <Switch>
             <Route path='/' exact component={Login} />
             <Route path='/login' exact component={Login} />
@@ -18,6 +21,7 @@ class TodoApp extends Component {
             <Route path='/todo' component={TodoList} />
             <Route component={Error} />
           </Switch>
+          <Footer />
         </Router>
       </div>
     )
