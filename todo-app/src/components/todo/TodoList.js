@@ -4,7 +4,11 @@ class TodoList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      todo: { id: 1, description: 'Learn React' }
+      todos: [
+        { id: 1, description: 'Learn to Dance' },
+        { id: 2, description: 'Become an Expert at React' },
+        { id: 3, description: 'Visit India' }
+      ]
     }
   }
 
@@ -20,10 +24,12 @@ class TodoList extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{this.state.todo.id}</td>
-              <td>{this.state.todo.description}</td>
-            </tr>
+            {this.state.todos.map(todo => (
+              <tr>
+                <td>{todo.id}</td>
+                <td>{todo.description}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
