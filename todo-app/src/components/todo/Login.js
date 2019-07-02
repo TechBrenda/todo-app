@@ -20,7 +20,7 @@ class Login extends Component {
       this.state.username === 'techbrenda' &&
       this.state.password === 'apples'
     ) {
-      this.props.history.push('/welcome')
+      this.props.history.push(`/welcome/${this.state.username}`)
     } else {
       console.log('Failed')
       this.setState({
