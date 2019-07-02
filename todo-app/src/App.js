@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
+import './bootstrap.css'
 /* import FirstComponent from './components/learning-examples/FirstComponent';
 import SecondComponent from './components/learning-examples/SecondComponent';
 import ThirdComponent from './components/learning-examples/ThirdComponent'; */
