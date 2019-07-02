@@ -20,11 +20,7 @@ class Login extends Component {
       this.state.username === 'techbrenda' &&
       this.state.password === 'apples'
     ) {
-      console.log('Successful')
-      this.setState({
-        isLoggedIn: true,
-        loginMessage: 'Login Successful'
-      })
+      this.props.history.push('/welcome')
     } else {
       console.log('Failed')
       this.setState({
