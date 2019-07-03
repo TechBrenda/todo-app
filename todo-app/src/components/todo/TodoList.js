@@ -34,19 +34,17 @@ class TodoList extends Component {
         <table className='table'>
           <thead>
             <tr>
-              <th>id</th>
-              <th>description</th>
-              <th>done</th>
-              <th>targetDate</th>
+              <th>Todo</th>
+              <th>Target Date</th>
+              <th>Completed?</th>
             </tr>
           </thead>
           <tbody>
             {this.state.todos.map(todo => (
               <tr key={todo.id}>
-                <td>{todo.id}</td>
                 <td>{todo.description}</td>
-                <td>{todo.done.toString()}</td>
                 <td>{todo.targetDate.toString()}</td>
+                <td>{todo.done.toString()}</td>
               </tr>
             ))}
           </tbody>
