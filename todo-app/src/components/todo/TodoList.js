@@ -29,9 +29,9 @@ class TodoList extends Component {
 
   render () {
     return (
-      <div class='container'>
+      <div className='container'>
         <h1>List Todos</h1>
-        <table class='table'>
+        <table className='table'>
           <thead>
             <tr>
               <th>id</th>

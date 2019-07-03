@@ -32,9 +32,9 @@ class Login extends Component {
     return (
       <div>
         <h1>Login</h1>
-        <div classname='container'>
-          {this.state.loginFailed === false && (
-            <div>Invalid Credentials</div>
+        <div className='container'>
+          {this.state.loginFailed && (
+            <div className='alert alert-warning'>Invalid Credentials</div>
           )}
           <span>User Name:</span>
           <input
@@ -50,7 +50,9 @@ class Login extends Component {
             value={this.state.password}
             onChange={this.handleChange}
           />
-          <button className='btn btn-success' onClick={this.handleLogin}>Login</button>
+          <button className='btn btn-success' onClick={this.handleLogin}>
+            Login
+          </button>
         </div>
       </div>
     )
