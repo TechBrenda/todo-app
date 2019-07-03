@@ -29,7 +29,7 @@ class TodoList extends Component {
 
   render () {
     return (
-      <div>
+      <div class='container'>
         <h1>List Todos</h1>
         <table class='table'>
           <thead>
