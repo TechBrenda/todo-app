@@ -31,7 +31,7 @@ class TodoList extends Component {
     return (
       <div>
         <h1>List Todos</h1>
-        <table>
+        <table class='table'>
           <thead>
             <tr>
               <th>id</th>

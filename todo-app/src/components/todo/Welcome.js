@@ -5,8 +5,11 @@ class Welcome extends Component {
   render () {
     return (
       <div>
-        Welcome {this.props.match.params.name}.<br />
-        <Link to='/todo'>Manage your Todos</Link>
+        <h1>Welcome!</h1>
+        <div className='container'>
+          Welcome {this.props.match.params.name}.&nbsp;
+          <Link to='/todo'>Manage your Todos</Link>
+        </div>
       </div>
     )
   }

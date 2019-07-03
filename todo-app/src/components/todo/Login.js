@@ -6,8 +6,7 @@ class Login extends Component {
     this.state = {
       username: 'techbrenda',
       password: '',
-      isLoggedIn: false,
-      loginMessage: ''
+      loginFailed: false
     }
   }
 
@@ -24,8 +23,7 @@ class Login extends Component {
     } else {
       console.log('Failed')
       this.setState({
-        isLoggedIn: false,
-        loginMessage: 'Invalid Credentials'
+        loginFailed: true
       })
     }
   }
@@ -33,22 +31,27 @@ class Login extends Component {
   render () {
     return (
       <div>
-        <div>{this.state.loginMessage}</div>
-        <span>User Name:</span>
-        <input
-          type='text'
-          name='username'
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
-        <span>Password:</span>
-        <input
-          type='password'
-          name='password'
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleLogin}>Login</button>
+        <h1>Login</h1>
+        <div classname='container'>
+          {this.state.loginFailed === false && (
+            <div>Invalid Credentials</div>
+          )}
+          <span>User Name:</span>
+          <input
+            type='text'
+            name='username'
+            value={this.state.username}
+            onChange={this.handleChange}
+          />
+          <span>Password:</span>
+          <input
+            type='password'
+            name='password'
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <button className='btn btn-success' onClick={this.handleLogin}>Login</button>
+        </div>
       </div>
     )
   }
