@@ -9,17 +9,61 @@ import Header from './Header'
 import Footer from './Footer'
 import Logout from './Logout'
 import AuthenticatedRoute from './AuthenticatedRoute'
+import AuthenticationService from './AuthenticationService'
 
 class TodoApp extends Component {
+  constructor () {
+    super()
+    this.state = {
+      isUserLoggedIn: false,
+      username: ''
+    }
+  }
+
+  loginUser = username => {
+    this.setState({
+      isUserLoggedIn: true,
+      username
+    })
+    AuthenticationService.registerSuccessfulLogin(username, '')
+  }
+
+  logoutUser = () => {
+    this.setState({
+      isUserLoggedIn: false,
+      username: ''
+    })
+    AuthenticationService.logout()
+  }
+
   render () {
     return (
       <div className='TodoApp'>
         <Router>
-          <Header />
+          <Header
+            isUserLoggedIn={this.state.isUserLoggedIn}
+            logoutUser={this.logoutUser}
+          />
           <Switch>
-            <Route path='/' exact component={Login} />
-            <Route path='/login' exact component={Login} />
-            <AuthenticatedRoute path='/welcome/:name' exact component={Welcome} />
+            <Route
+              path='/'
+              exact
+              render={routeProps => (
+                <Login {...routeProps} loginUser={this.loginUser} />
+              )}
+            />
+            <Route
+              path='/login'
+              exact
+              render={routeProps => (
+                <Login {...routeProps} loginUser={this.loginUser} />
+              )}
+            />
+            <AuthenticatedRoute
+              path='/welcome/:name'
+              exact
+              component={Welcome}
+            />
             <AuthenticatedRoute path='/todo' component={TodoList} />
             <AuthenticatedRoute path='/logout' component={Logout} />
             <Route component={Error} />
