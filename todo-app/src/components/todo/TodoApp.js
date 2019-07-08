@@ -19,6 +19,15 @@ class TodoApp extends Component {
       username: ''
     }
   }
+  
+  componentDidMount() {
+    if (AuthenticationService.isUserLoggedIn()) {
+      this.setState({
+        isUserLoggedIn: true,
+        username: AuthenticationService.getUser()
+      })
+    }
+  }
 
   loginUser = username => {
     this.setState({

@@ -4,8 +4,16 @@ class AuthenticationService {
   }
 
   isUserLoggedIn () {
-    const user = window.sessionStorage.getItem('authenticatedUser')
-    return (user !== null)
+    return window.sessionStorage.getItem('authenticatedUser') !== null
+  }
+
+  getUser () {
+    let user = window.sessionStorage.getItem('authenticatedUser')
+    if (user === null) {
+      return ''
+    } else {
+      return user
+    }
   }
 
   logout () {
