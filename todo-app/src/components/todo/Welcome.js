@@ -1,9 +1,23 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import HelloWorldService from '../../api/todo/HelloWorldService'
 
 class Welcome extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      welcomeMessage: ''
+    }
+  }
+
   getWelcomeMessage = () => {
-    console.log('Welcome button clicked')
+    HelloWorldService.executeHelloWorldService().then(response =>
+      this.handleSuccessfulResponse(response)
+    )
+  }
+
+  handleSuccessfulResponse = response => {
+    this.setState({ welcomeMessage: response.data })
   }
 
   render () {
@@ -21,6 +35,7 @@ class Welcome extends Component {
             Get Welcome Message
           </button>
         </div>
+        <div className='container'>{this.state.welcomeMessage}</div>
       </div>
     )
   }
