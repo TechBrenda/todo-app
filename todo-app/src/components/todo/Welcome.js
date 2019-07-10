@@ -11,13 +11,14 @@ class Welcome extends Component {
   }
 
   getWelcomeMessage = () => {
-    HelloWorldService.executeHelloWorldService().then(response =>
+    HelloWorldService.executeHelloWorldBeanService().then(response =>
       this.handleSuccessfulResponse(response)
     )
   }
 
   handleSuccessfulResponse = response => {
-    this.setState({ welcomeMessage: response.data })
+    console.log(response)
+    this.setState({ welcomeMessage: response.data.message })
   }
 
   render () {

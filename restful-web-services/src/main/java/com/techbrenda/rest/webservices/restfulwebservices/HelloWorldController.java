@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 //Controller
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class HelloWorldController {
   // GET
   // URI - /hello-world
   // method "Hello World"
   //@RequestMapping(method = RequestMethod.GET, path = "/hello-world")
   @GetMapping(path = "/hello-world")
-  @CrossOrigin(origins = "http://localhost:4200")
   public String helloWorld() {
     return "Hello World";
   }
@@ -21,7 +21,7 @@ public class HelloWorldController {
   // hello-world-bean
   @GetMapping(path = "/hello-world-bean")
   public HelloWorldBean helloWorldBean() {
-    return new HelloWorldBean("Hello World");
+    return new HelloWorldBean("Hello World Bean");
   }
   
   @GetMapping(path = "/hello-world/{name}")
