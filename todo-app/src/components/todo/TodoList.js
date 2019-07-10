@@ -1,30 +1,20 @@
 import React, { Component } from 'react'
+import TodoDataService from '../../api/todo/TodoDataService'
 
 class TodoList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      todos: [
-        {
-          id: 1,
-          description: 'Learn to Dance',
-          done: false,
-          targetDate: new Date()
-        },
-        {
-          id: 2,
-          description: 'Become an Expert at React',
-          done: false,
-          targetDate: new Date()
-        },
-        {
-          id: 3,
-          description: 'Visit India',
-          done: false,
-          targetDate: new Date()
-        }
-      ]
+      todos: []
     }
+  }
+
+  componentDidMount () {
+    let { username } = this.props
+    console.log(username)
+    TodoDataService.getAllTodos(username).then(response => {
+      this.setState({ todos: response.data })
+    })
   }
 
   render () {

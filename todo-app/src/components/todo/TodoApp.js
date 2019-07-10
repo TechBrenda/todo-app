@@ -73,7 +73,10 @@ class TodoApp extends Component {
               exact
               component={Welcome}
             />
-            <AuthenticatedRoute path='/todo' component={TodoList} />
+            <AuthenticatedRoute path='/todo' render={routeProps => (
+              <TodoList {...routeProps} username={AuthenticationService.getUser()} />
+              )}
+            />
             <AuthenticatedRoute path='/logout' component={Logout} />
             <Route component={Error} />
           </Switch>
