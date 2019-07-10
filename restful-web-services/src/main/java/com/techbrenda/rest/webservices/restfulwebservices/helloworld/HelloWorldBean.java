@@ -1,4 +1,4 @@
-package com.techbrenda.rest.webservices.restfulwebservices;
+package com.techbrenda.rest.webservices.restfulwebservices.helloworld;
 
 public class HelloWorldBean {
 
