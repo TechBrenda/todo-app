@@ -11,9 +11,9 @@ class Welcome extends Component {
   }
 
   getWelcomeMessage = () => {
-    HelloWorldService.executeHelloWorldBeanService().then(response =>
-      this.handleSuccessfulResponse(response)
-    )
+    HelloWorldService.executeHelloWorldPathVariableService(
+      this.props.match.params.name
+    ).then(response => this.handleSuccessfulResponse(response))
   }
 
   handleSuccessfulResponse = response => {
