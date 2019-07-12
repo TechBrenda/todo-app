@@ -4,6 +4,7 @@ import './TodoApp.css'
 import Login from './Login'
 import Welcome from './Welcome'
 import TodoList from './TodoList'
+import Todo from './Todo'
 import Error from './Error'
 import Header from './Header'
 import Footer from './Footer'
@@ -72,6 +73,10 @@ class TodoApp extends Component {
               path='/welcome/:name'
               exact
               component={Welcome}
+            />
+            <AuthenticatedRoute path='/todo/:id' render={routeProps => (
+              <Todo {...routeProps} username={AuthenticationService.getUser()} />
+              )}
             />
             <AuthenticatedRoute path='/todo' render={routeProps => (
               <TodoList {...routeProps} username={AuthenticationService.getUser()} />

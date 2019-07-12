@@ -14,6 +14,10 @@ class TodoList extends Component {
       this.setState({ todos: response.data })
     })
   }
+  
+  updateTodo = id => {
+    this.props.history.push(`/todo/${id}`)
+  }
 
   deleteTodo = id => {
     TodoDataService.deleteTodo(this.props.username, id).then(response => {
@@ -32,6 +36,7 @@ class TodoList extends Component {
               <th>Todo</th>
               <th>Target Date</th>
               <th>Completed?</th>
+              <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -41,6 +46,14 @@ class TodoList extends Component {
                 <td>{todo.description}</td>
                 <td>{todo.targetDate.toString()}</td>
                 <td>{todo.done.toString()}</td>
+                <td>
+                  <button
+                    className='btn btn-success'
+                    onClick={() => this.updateTodo(todo.id)}
+                  >
+                    Update
+                  </button>
+                </td>
                 <td>
                   <button
                     className='btn btn-warning'
