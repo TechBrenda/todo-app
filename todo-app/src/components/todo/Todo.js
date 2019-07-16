@@ -37,8 +37,16 @@ class Todo extends React.Component {
     return errors
   }
 
+  // TODO: find out why it's not updating and why the date goes 2 days back
   handleSubmit = values => {
-    console.log(values)
+    TodoDataService.updateTodo(this.props.username, this.state.id, {
+      id: this.state.id,
+      username: this.props.username,
+      description: this.state.description,
+      targetDate: this.state.targetDate,
+      done: false
+    }).then(() => this.props.history.push('/todo'))
+    
   }
 
   render () {

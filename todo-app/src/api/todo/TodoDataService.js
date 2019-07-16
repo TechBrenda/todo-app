@@ -9,6 +9,10 @@ class TodoDataService {
     return axios.get(`/users/${name}/todos/${id}`)
   }
   
+  updateTodo = (name, id, todo) => {
+    return axios.put(`/users/${name}/todos/${id}`, todo)
+  }
+  
   deleteTodo = (name, id) => {
     return axios.delete(`/users/${name}/todos/${id}`)
   }
