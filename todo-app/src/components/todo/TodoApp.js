@@ -45,6 +45,8 @@ class TodoApp extends Component {
     })
     AuthenticationService.logout()
   }
+  
+  renderLogin = routeProps => <Login {...routeProps} loginUser={this.loginUser} />
 
   render () {
     return (
@@ -58,16 +60,12 @@ class TodoApp extends Component {
             <Route
               path='/'
               exact
-              render={routeProps => (
-                <Login {...routeProps} loginUser={this.loginUser} />
-              )}
+              render={this.renderLogin}
             />
             <Route
               path='/login'
               exact
-              render={routeProps => (
-                <Login {...routeProps} loginUser={this.loginUser} />
-              )}
+              render={this.renderLogin}
             />
             <AuthenticatedRoute
               path='/welcome/:name'
