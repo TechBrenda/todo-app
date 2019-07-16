@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 class Todo extends React.Component {
   constructor (props) {
@@ -10,6 +10,21 @@ class Todo extends React.Component {
       description: 'Learn Forms Now',
       targetDate: moment().format('YYYY-MM-DD')
     }
+  }
+
+  handleValidation = values => {
+    let errors = {}
+    if (!values.description) {
+      errors.description = 'Enter a Description'
+    } else if (values.description.length < 5) {
+      errors.description = 'Enter at least 5 characters in Description'
+    }
+
+    if (!moment(values.targetDate).isValid()) {
+      errors.targetDate = 'Enter a valid Target Date'
+    }
+
+    return errors
   }
 
   handleSubmit = values => {
@@ -24,10 +39,21 @@ class Todo extends React.Component {
         <div className='container'>
           <Formik
             initialValues={{ description, targetDate }}
+            validate={this.handleValidation}
             onSubmit={this.handleSubmit}
           >
             {props => (
               <Form>
+                <ErrorMessage
+                  name='description'
+                  component='div'
+                  className='alert alert-warning'
+                />
+                <ErrorMessage
+                  name='targetDate'
+                  component='div'
+                  className='alert alert-warning'
+                />
                 <fieldset className='form-group'>
                   <label>Description</label>
                   <Field
