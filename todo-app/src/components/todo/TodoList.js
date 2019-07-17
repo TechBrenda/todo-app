@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
+import moment from 'moment'
 import TodoDataService from '../../api/todo/TodoDataService'
 
-class TodoList extends Component {
+class TodoList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -44,7 +45,7 @@ class TodoList extends Component {
             {this.state.todos.map(todo => (
               <tr key={todo.id}>
                 <td>{todo.description}</td>
-                <td>{todo.targetDate.toString()}</td>
+                <td>{moment(todo.targetDate).utc().format('YYYY-MM-DD')}</td>
                 <td>{todo.done.toString()}</td>
                 <td>
                   <button
