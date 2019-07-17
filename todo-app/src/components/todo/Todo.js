@@ -49,7 +49,6 @@ class Todo extends React.Component {
       targetDate: values.targetDate,
       done: false
     }
-    console.log(data)
     TodoDataService.updateTodo(this.props.username, this.state.id, data).then(
       () => this.props.history.push('/todo')
     )
