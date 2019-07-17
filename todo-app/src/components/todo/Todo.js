@@ -7,23 +7,24 @@ class Todo extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      id: this.props.match.params.id,
       description: '',
       targetDate: moment().format('YYYY-MM-DD')
     }
   }
 
   componentDidMount () {
-    TodoDataService.getTodo(this.props.username, this.state.id).then(
-      response => {
-        this.setState({
-          description: response.data.description,
-          targetDate: moment(response.data.targetDate)
-            .utc()
-            .format('YYYY-MM-DD')
-        })
-      }
-    )
+    if (this.props.match.params.id !== 0) {
+      TodoDataService.getTodo(this.props.username, this.props.match.params.id).then(
+        response => {
+          this.setState({
+            description: response.data.description,
+            targetDate: moment(response.data.targetDate)
+              .utc()
+              .format('YYYY-MM-DD')
+          })
+        }
+      )
+    }
   }
 
   handleValidation = values => {
@@ -43,25 +44,31 @@ class Todo extends React.Component {
 
   handleSubmit = values => {
     let data = {
-      id: this.state.id,
+      id: this.props.match.params.id,
       username: this.props.username,
       description: values.description,
       targetDate: values.targetDate,
       done: false
     }
-    TodoDataService.updateTodo(this.props.username, this.state.id, data).then(
-      () => this.props.history.push('/todo')
-    )
+    
+    if (data.id === 0) {
+      TodoDataService.createTodo(data.username, data).then(
+        () => this.props.history.push('/todo')
+      )
+    } else {
+      TodoDataService.updateTodo(data.username, data.id, data).then(
+        () => this.props.history.push('/todo')
+      )
+    }
   }
 
   render () {
-    let { description, targetDate } = this.state
     return (
       <div>
         <h1>Todo</h1>
         <div className='container'>
           <Formik
-            initialValues={{ description, targetDate }}
+            initialValues={this.state}
             validate={this.handleValidation}
             onSubmit={this.handleSubmit}
             enableReinitialize

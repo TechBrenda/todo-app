@@ -16,6 +16,10 @@ class TodoList extends React.Component {
     })
   }
   
+  addTodo = () => {
+    this.props.history.push('/todo/0')
+  }
+  
   updateTodo = id => {
     this.props.history.push(`/todo/${id}`)
   }
@@ -67,6 +71,9 @@ class TodoList extends React.Component {
             ))}
           </tbody>
         </table>
+        <div className='row'>
+          <button className='btn btn-success' onClick={this.addTodo}>Add</button>
+        </div>
       </div>
     )
   }

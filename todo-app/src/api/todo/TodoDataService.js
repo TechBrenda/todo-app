@@ -1,6 +1,10 @@
 import axios from 'axios'
 
 class TodoDataService {
+  createTodo = (name, todo) => {
+    return axios.post(`/users/${name}/todos`, todo)
+  }
+  
   getAllTodos = (name) => {
     return axios.get(`/users/${name}/todos`)
   }
