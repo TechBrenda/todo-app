@@ -14,11 +14,15 @@ class Todo extends React.Component {
   }
 
   componentDidMount () {
-    TodoDataService.getTodo(this.props.username, this.state.id).then(response =>
-      this.setState({
-        description: response.data.description,
-        targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
-      })
+    TodoDataService.getTodo(this.props.username, this.state.id).then(
+      response => {
+        this.setState({
+          description: response.data.description,
+          targetDate: moment(response.data.targetDate)
+            .utc()
+            .format('YYYY-MM-DD')
+        })
+      }
     )
   }
 
@@ -37,16 +41,18 @@ class Todo extends React.Component {
     return errors
   }
 
-  // TODO: find out why it's not updating and why the date goes 2 days back
   handleSubmit = values => {
-    TodoDataService.updateTodo(this.props.username, this.state.id, {
+    let data = {
       id: this.state.id,
       username: this.props.username,
-      description: this.state.description,
-      targetDate: this.state.targetDate,
+      description: values.description,
+      targetDate: values.targetDate,
       done: false
-    }).then(() => this.props.history.push('/todo'))
-    
+    }
+    console.log(data)
+    TodoDataService.updateTodo(this.props.username, this.state.id, data).then(
+      () => this.props.history.push('/todo')
+    )
   }
 
   render () {
@@ -60,8 +66,7 @@ class Todo extends React.Component {
             validate={this.handleValidation}
             onSubmit={this.handleSubmit}
             enableReinitialize
-          >
-            {props => (
+            render={props => (
               <Form>
                 <ErrorMessage
                   name='description'
@@ -94,7 +99,7 @@ class Todo extends React.Component {
                 </button>
               </Form>
             )}
-          </Formik>
+          />
         </div>
       </div>
     )
