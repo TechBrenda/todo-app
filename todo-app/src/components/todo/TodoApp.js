@@ -30,12 +30,12 @@ class TodoApp extends Component {
     }
   }
 
-  loginUser = username => {
+  loginUser = (username, password) => {
     this.setState({
       isUserLoggedIn: true,
       username
     })
-    AuthenticationService.registerSuccessfulLogin(username, '')
+    AuthenticationService.registerSuccessfulLogin(username, password)
   }
 
   logoutUser = () => {

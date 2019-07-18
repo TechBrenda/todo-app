@@ -4,8 +4,12 @@ dotenv.config()
 
 class AuthenticationService {
   registerSuccessfulLogin (username, password) {
+    let auth = {
+      username,
+      password
+    }
     window.sessionStorage.setItem('authenticatedUser', username)
-    this.setupAxiosInterceptors()
+    this.setupAxiosInterceptors(auth)
   }
 
   isUserLoggedIn () {
@@ -25,13 +29,10 @@ class AuthenticationService {
     window.sessionStorage.removeItem('authenticatedUser')
   }
 
-  setupAxiosInterceptors = () => {
+  setupAxiosInterceptors = (auth) => {
     axios.interceptors.request.use(config => {
       if (this.isUserLoggedIn()) {
-        config.auth = {
-          username: process.env.REACT_APP_TODO_API_USER,
-          password: process.env.REACT_APP_TODO_API_PASS
-        }
+        config.auth = auth
         console.log(config)
       }
       return config

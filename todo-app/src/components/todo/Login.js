@@ -16,7 +16,7 @@ class Login extends Component {
 
   handleLogin = () => {
     const { username, password } = this.state
-    if (username === 'techbrenda' && password === 'apples') {
+    if (username === 'techbrenda' && password === 'oranges') {
       this.props.loginUser(username, password)
       this.props.history.push(`/welcome/${username}`)
     } else {
