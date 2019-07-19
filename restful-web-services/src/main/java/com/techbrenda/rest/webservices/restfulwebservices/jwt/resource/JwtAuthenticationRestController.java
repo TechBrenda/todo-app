@@ -5,7 +5,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 
 import com.techbrenda.rest.webservices.restfulwebservices.jwt.JwtTokenUtil;
-//import com.techbrenda.rest.webservices.restfulwebservices.jwt.JwtUserDetails;
+import com.techbrenda.rest.webservices.restfulwebservices.jwt.JwtUserDetails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,8 +57,8 @@ public class JwtAuthenticationRestController {
   public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
     String authToken = request.getHeader(tokenHeader);
     final String token = authToken.substring(7);
-    //String username = jwtTokenUtil.getUsernameFromToken(token);
-    //JwtUserDetails user = (JwtUserDetails) jwtInMemoryUserDetailsService.loadUserByUsername(username);
+    String username = jwtTokenUtil.getUsernameFromToken(token);
+    JwtUserDetails user = (JwtUserDetails) jwtInMemoryUserDetailsService.loadUserByUsername(username);
 
     if (jwtTokenUtil.canTokenBeRefreshed(token)) {
       String refreshedToken = jwtTokenUtil.refreshToken(token);
