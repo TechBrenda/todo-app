@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import AuthenticationService from './AuthenticationService'
 
 class Login extends Component {
   constructor (props) {
@@ -16,15 +17,17 @@ class Login extends Component {
 
   handleLogin = () => {
     const { username, password } = this.state
-    if (username === 'techbrenda' && password === 'oranges') {
-      this.props.loginUser(username, password)
-      this.props.history.push(`/welcome/${username}`)
-    } else {
-      console.log('Failed')
-      this.setState({
-        loginFailed: true
+    AuthenticationService.executeBasicAuthentication(username, password)
+      .then(() => {
+        this.props.loginUser(username)
+        AuthenticationService.registerSuccessfulLogin(username, password)
+        this.props.history.push(`/welcome/${username}`)
       })
-    }
+      .catch(() => {
+        this.setState({
+          loginFailed: true
+        })
+      })
   }
 
   render () {

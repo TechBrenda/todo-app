@@ -3,20 +3,28 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 class AuthenticationService {
-  registerSuccessfulLogin (username, password) {
-    let auth = {
-      username,
-      password
-    }
-    window.sessionStorage.setItem('authenticatedUser', username)
-    this.setupAxiosInterceptors(auth)
+  executeBasicAuthentication = (username, password) => {
+    return axios.get('/basicauth', {
+      headers: {
+        authorization: this.createBasicAuthToken(username, password)
+      }
+    })
   }
 
-  isUserLoggedIn () {
+  createBasicAuthToken = (username, password) => {
+    return 'Basic ' + window.btoa(username + ':' + password)
+  }
+
+  registerSuccessfulLogin = (username, password) => {
+    window.sessionStorage.setItem('authenticatedUser', username)
+    this.setupAxiosInterceptors(this.createBasicAuthToken(username, password))
+  }
+
+  isUserLoggedIn = () => {
     return window.sessionStorage.getItem('authenticatedUser') !== null
   }
 
-  getUser () {
+  getUser = () => {
     let user = window.sessionStorage.getItem('authenticatedUser')
     if (user === null) {
       return ''
@@ -25,14 +33,14 @@ class AuthenticationService {
     }
   }
 
-  logout () {
+  logout = () => {
     window.sessionStorage.removeItem('authenticatedUser')
   }
 
-  setupAxiosInterceptors = (auth) => {
+  setupAxiosInterceptors = authToken => {
     axios.interceptors.request.use(config => {
       if (this.isUserLoggedIn()) {
-        config.auth = auth
+        config.headers.authorization = authToken
         console.log(config)
       }
       return config

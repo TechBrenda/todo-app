@@ -27,7 +27,7 @@ function Header ({ isUserLoggedIn = false, logoutUser }) {
         <ul className='navbar-nav navbar-collapse justify-content-end'>
           {!isUserLoggedIn && (
             <li>
-              <Link className='nav-link' to='/login'>
+              <Link className='nav-link' to='/'>
                 Login
               </Link>
             </li>
