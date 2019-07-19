@@ -1,4 +1,4 @@
-package com.techbrenda.rest.webservices.restfulwebservices.basic.auth;
+package com.techbrenda.rest.basic.auth;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

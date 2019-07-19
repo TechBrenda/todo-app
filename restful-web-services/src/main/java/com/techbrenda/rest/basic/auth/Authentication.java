@@ -1,4 +1,4 @@
-package com.techbrenda.rest.webservices.restfulwebservices.basic.auth;
+package com.techbrenda.rest.basic.auth;
 
 public class Authentication {
   private String message;
