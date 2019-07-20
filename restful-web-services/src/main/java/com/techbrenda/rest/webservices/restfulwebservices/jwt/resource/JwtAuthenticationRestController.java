@@ -15,7 +15,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -69,7 +68,7 @@ public class JwtAuthenticationRestController {
     }
   }
 
-  @ExceptionHandler({ JwtAuthenticationException.class })
+  @ExceptionHandler({ AuthenticationException.class })
   public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
   }
@@ -81,9 +80,9 @@ public class JwtAuthenticationRestController {
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
     } catch (DisabledException e) {
-      throw new JwtAuthenticationException("USER_DISABLED", e);
+      throw new AuthenticationException("USER_DISABLED", e);
     } catch (BadCredentialsException e) {
-      throw new JwtAuthenticationException("INVALID_CREDENTIALS", e);
+      throw new AuthenticationException("INVALID_CREDENTIALS", e);
     }
   }
 }
