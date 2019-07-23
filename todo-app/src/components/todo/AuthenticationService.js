@@ -11,6 +11,13 @@ class AuthenticationService {
     })
   }
 
+  executeJwtAuthentication = (username, password) => {
+    return axios.post('/authenticate', {
+      username,
+      password
+    })
+  }
+
   createBasicAuthToken = (username, password) => {
     return 'Basic ' + window.btoa(username + ':' + password)
   }
@@ -18,6 +25,15 @@ class AuthenticationService {
   registerSuccessfulLogin = (username, password) => {
     window.sessionStorage.setItem('authenticatedUser', username)
     this.setupAxiosInterceptors(this.createBasicAuthToken(username, password))
+  }
+  
+  createJwtToken = (token) => {
+    return 'Bearer ' + token
+  }
+  
+  registerJwtLogin = (username, token) => {
+    window.sessionStorage.setItem('authenticatedUser', username)
+    this.setupAxiosInterceptors(this.createJwtToken(token))
   }
 
   isUserLoggedIn = () => {

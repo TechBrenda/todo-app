@@ -16,18 +16,18 @@ class Login extends Component {
   }
 
   handleLogin = () => {
-    const { username, password } = this.state
-    AuthenticationService.executeBasicAuthentication(username, password)
-      .then(() => {
-        this.props.loginUser(username)
-        AuthenticationService.registerSuccessfulLogin(username, password)
-        this.props.history.push(`/welcome/${username}`)
+    const { username, password } = this.state      
+    AuthenticationService.executeJwtAuthentication(username, password)
+    .then((response) => {
+      this.props.loginUser(username)
+      AuthenticationService.registerJwtLogin(username, response.data.token)
+      this.props.history.push(`/welcome/${username}`)
+    })
+    .catch(() => {
+      this.setState({
+        loginFailed: true
       })
-      .catch(() => {
-        this.setState({
-          loginFailed: true
-        })
-      })
+    })
   }
 
   render () {
