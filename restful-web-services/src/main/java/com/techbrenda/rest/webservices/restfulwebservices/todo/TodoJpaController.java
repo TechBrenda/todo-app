@@ -19,9 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class TodoJpaController {
   
   @Autowired
-  private TodoHardcodedService todoService;
-  
-  @Autowired
   private TodoRepository todoRepository;
   
   @GetMapping("/jpa/users/{username}/todos")
@@ -36,7 +33,7 @@ public class TodoJpaController {
   
   @PostMapping("/jpa/users/{username}/todos")
   public ResponseEntity<Void> createTodo(@PathVariable String username, @RequestBody Todo todo) {
-    Todo createdTodo = todoService.save(todo);
+    Todo createdTodo = todoRepository.save(todo);
     
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
     
@@ -45,15 +42,12 @@ public class TodoJpaController {
   
   @PutMapping("/jpa/users/{username}/todos/{id}")
   public ResponseEntity<Todo> updateTodo(@PathVariable String username, @PathVariable long id, @RequestBody Todo todo) {
-    return new ResponseEntity<Todo>(todoService.save(todo), HttpStatus.OK);
+    return new ResponseEntity<Todo>(todoRepository.save(todo), HttpStatus.OK);
   }
   
   @DeleteMapping("/jpa/users/{username}/todos/{id}")
   public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
-    Todo todo = todoService.deleteById(id);
-    if (todo != null) {
-      return ResponseEntity.noContent().build();
-    }
-    return ResponseEntity.notFound().build();
+    todoRepository.deleteById(id);
+    return ResponseEntity.noContent().build();
   }
 }
