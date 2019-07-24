@@ -23,25 +23,28 @@ class AuthenticationService {
   }
 
   registerSuccessfulLogin = (username, password) => {
-    window.sessionStorage.setItem('authenticatedUser', username)
+    window.sessionStorage.setItem(process.env.REACT_APP_SESSION_KEY_USER, username)
     this.setupAxiosInterceptors(this.createBasicAuthToken(username, password))
   }
-  
-  createJwtToken = (token) => {
+
+  createJwtToken = token => {
     return 'Bearer ' + token
   }
-  
+
   registerJwtLogin = (username, token) => {
-    window.sessionStorage.setItem('authenticatedUser', username)
-    this.setupAxiosInterceptors(this.createJwtToken(token))
+    window.sessionStorage.setItem(process.env.REACT_APP_SESSION_KEY_USER, username)
+    window.sessionStorage.setItem(process.env.REACT_APP_SESSION_KEY_TOKEN, token)
+    this.setupAxiosInterceptors(
+      this.createJwtToken(this.getToken(process.env.REACT_APP_SESSION_KEY_TOKEN))
+    )
   }
 
   isUserLoggedIn = () => {
-    return window.sessionStorage.getItem('authenticatedUser') !== null
+    return window.sessionStorage.getItem(process.env.REACT_APP_SESSION_KEY_USER) !== null
   }
 
   getUser = () => {
-    let user = window.sessionStorage.getItem('authenticatedUser')
+    let user = window.sessionStorage.getItem(process.env.REACT_APP_SESSION_KEY_USER)
     if (user === null) {
       return ''
     } else {
@@ -49,15 +52,34 @@ class AuthenticationService {
     }
   }
 
+  getToken = () => {
+    let token = window.sessionStorage.getItem(process.env.REACT_APP_SESSION_KEY_TOKEN)
+    if (token === null) {
+      return ''
+    } else {
+      return token
+    }
+  }
+  
+  reloadToken = () => {
+    let token = this.getToken()
+    if (token !== '') {
+      this.setupAxiosInterceptors(
+        this.createJwtToken(this.getToken(process.env.REACT_APP_SESSION_KEY_TOKEN))
+      )
+    }
+    return token
+  }
+
   logout = () => {
-    window.sessionStorage.removeItem('authenticatedUser')
+    window.sessionStorage.removeItem(process.env.REACT_APP_SESSION_KEY_USER)
+    window.sessionStorage.removeItem(process.env.REACT_APP_SESSION_KEY_TOKEN)
   }
 
   setupAxiosInterceptors = authToken => {
     axios.interceptors.request.use(config => {
       if (this.isUserLoggedIn()) {
         config.headers.authorization = authToken
-        console.log(config)
       }
       return config
     })

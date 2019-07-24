@@ -17,15 +17,18 @@ class TodoApp extends Component {
     super()
     this.state = {
       isUserLoggedIn: false,
-      username: AuthenticationService.getUser()
+      username: AuthenticationService.getUser(),
+      token: AuthenticationService.reloadToken()
     }
   }
 
   componentDidMount () {
     if (AuthenticationService.isUserLoggedIn()) {
+      AuthenticationService.reloadToken()
       this.setState({
         isUserLoggedIn: true,
-        username: AuthenticationService.getUser()
+        username: AuthenticationService.getUser(),
+        token: AuthenticationService.reloadToken()
       })
     }
   }
