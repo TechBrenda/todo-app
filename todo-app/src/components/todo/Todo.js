@@ -8,7 +8,8 @@ class Todo extends React.Component {
     super(props)
     this.state = {
       description: '',
-      targetDate: moment().format('YYYY-MM-DD')
+      targetDate: moment().format('YYYY-MM-DD'),
+      isDone: false
     }
   }
 
@@ -20,7 +21,8 @@ class Todo extends React.Component {
             description: response.data.description,
             targetDate: moment(response.data.targetDate)
               .utc()
-              .format('YYYY-MM-DD')
+              .format('YYYY-MM-DD'),
+            isDone: response.data.done
           })
         }
       )
@@ -48,7 +50,7 @@ class Todo extends React.Component {
       username: this.props.username,
       description: values.description,
       targetDate: values.targetDate,
-      done: false
+      done: values.isDone
     }
     
     if (data.id === 0) {
@@ -98,6 +100,15 @@ class Todo extends React.Component {
                     className='form-control'
                     type='date'
                     name='targetDate'
+                  />
+                </fieldset>
+                <fieldset className='form-group'>
+                  <label>Complete</label>
+                  <Field
+                    className='form-control'
+                    type='checkbox'
+                    name='isDone'
+                    checked={props.values.isDone}
                   />
                 </fieldset>
                 <button className='btn btn-success' type='submit'>
