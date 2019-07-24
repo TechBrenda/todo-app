@@ -2,23 +2,23 @@ import axios from 'axios'
 
 class TodoDataService {
   createTodo = (name, todo) => {
-    return axios.post(`/users/${name}/todos`, todo)
+    return axios.post(`/jpa/users/${name}/todos`, todo)
   }
 
   getAllTodos = name => {
-    return axios.get(`/users/${name}/todos`)
+    return axios.get(`/jpa/users/${name}/todos`)
   }
 
   getTodo = (name, id) => {
-    return axios.get(`/users/${name}/todos/${id}`)
+    return axios.get(`/jpa/users/${name}/todos/${id}`)
   }
 
   updateTodo = (name, id, todo) => {
-    return axios.put(`/users/${name}/todos/${id}`, todo)
+    return axios.put(`/jpa/users/${name}/todos/${id}`, todo)
   }
 
   deleteTodo = (name, id) => {
-    return axios.delete(`/users/${name}/todos/${id}`)
+    return axios.delete(`/jpa/users/${name}/todos/${id}`)
   }
 }
 
